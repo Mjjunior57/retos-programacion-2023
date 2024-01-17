@@ -1,0 +1,48 @@
+package com.mycompany.mouredretos;
+import java.util.Scanner;
+/**
+ *
+ * @author mjnn5
+ */
+public class ElLenguajeHacker {
+    public static void main(String[] args)
+    {
+        //Escuchamos al usuario
+        Scanner scanner = new Scanner (System.in);
+        System.out.println("Ingrese el texto a transicribir a hacker");
+        String textoOriginal= scanner.nextLine();
+        //Llamamos a la funcion para convertir el texto a leet
+        String textoLeet = convertirALeetSpeak(textoOriginal);
+        System.out.println("Texto en hacker Leet"+textoLeet);
+    }
+    //Hacemos una funcion para converttir el texto a leet speak
+    private static String convertirALeetSpeak(String texto)
+    {
+        // Definimos la tabla de sustitucion 
+        //Creamos un vector
+        String[] leetTabla={"4", "8", "<", "|)", "3", "6", "#", "!", "|", "_|", "|<", "1", "M", "|\\/|", "|\\|", "0", "|o", "P", "Q", "R", "$", "7", " |_|", "\\/", "\\/\\/", "><", "j", "2"};
+        //convertimos el texto
+        StringBuilder resultadoLeet= new StringBuilder();
+        for (char caracter: texto.toCharArray())
+        {
+            //comprobamos el caracter
+            if(Character.isLetterOrDigit(caracter))
+            {
+                caracter = Character.toLowerCase(caracter);
+                int indice = caracter - 'a';
+                if(Character.isDigit(caracter))
+                {
+                    resultadoLeet.append(leetTabla[26+Character.getNumericValue(caracter)]);
+                }else if (indice>=0&& indice <leetTabla.length)
+                {
+                    resultadoLeet.append(leetTabla[indice]);
+                }else
+                {
+                    resultadoLeet.append(caracter);
+                }
+                
+            }
+        } return resultadoLeet.toString();
+    }
+    
+}
