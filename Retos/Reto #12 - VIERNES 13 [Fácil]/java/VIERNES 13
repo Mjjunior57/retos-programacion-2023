@@ -1,0 +1,58 @@
+package com.mycompany.mouredretos;
+import java.util.Scanner;
+import java.time.DayOfWeek;
+import java.util.InputMismatchException;
+import java.time.LocalDate;
+/**
+ *
+ * @author mjnn5
+ */
+public class VIERNES13 {
+    public static void main(String[]args)
+    {
+        // establecemos los valores definiendo sus tipos y sus valores fijos
+        Scanner scanner =new Scanner(System.in);
+        //utilizamos un try chat para evitar errores y qeu el usuario meta un valor no desado ASI EVITAMOS ROMPER LA MAQUINA
+        try{
+        //Solicitamos al usuario que ingrese el valor 
+        System.out.println("Dime el año");
+        int year=scanner.nextInt();
+        //Solicitamos el mes 
+        System.out.println("Ingresa el mes 1 Enero,2Febrero etc ");
+        int month=scanner.nextInt();
+        boolean resultado=esViernes13(year,month);
+        //Si cumple el resultado sera la fecha indica y sera entonces viernes 13
+        if(resultado)
+        {
+            System.out.println("Es viernes 13"+resultado);
+        }else
+        {
+            System.out.println("No es viernes 13");
+        }
+    }catch(InputMismatchException  e)
+    {
+        System.out.println("ERROR:NO ADMITIMOS LETRAS O OTRO FORMATO INGRESE UN NUMERO VALIDO");
+    }
+    catch(Exception e)
+    {
+        System.out.println("Error inesperado"+e.getMessage());
+    }
+    finally
+        {
+            //Cerramos el scanner en el bloque finally para asegurar que se cierre incluso si ocurre una excepcion
+            scanner.close();
+        }
+    }
+   public static boolean esViernes13(int year,int month)
+   {
+       // CREAMOS UN OBJETO PARA EL DIA 13 DEL MES Y DEL AÑO
+       LocalDate fecha= LocalDate.of(year,month,13);
+       
+       //Nos muestra el dia de la semana para el dia Viernes 13
+       DayOfWeek DiaDeLaSemana = fecha.getDayOfWeek();
+       //Verificamos sio el dia de la semana es viernes
+      return DiaDeLaSemana == DayOfWeek.FRIDAY;
+       
+       
+   }
+}
