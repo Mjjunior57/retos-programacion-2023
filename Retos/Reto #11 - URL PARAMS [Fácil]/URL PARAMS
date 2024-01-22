@@ -1,0 +1,56 @@
+package com.mycompany.mouredretos;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author mjnn5
+ */
+public class URLParams {
+    public static void main(String[]args)
+    {
+        String urlEjemplo= "https://retosdeprogramacion.com?year=2023&challenge=0";
+        try
+        {
+            //Se abre conexion
+            List<String> valoresParametros=obtenerValoresDeURL(urlEjemplo);
+            System.out.println(valoresParametros);
+        }catch(Exception e)
+        {
+            //SI DA FALLO DARA ESTE MENSAJE SI NO INTRODUCE LO QUE QUEREMOS QUE PASE 
+            System.out.println("ERROR NO FUNCIONAN");
+        }
+    }
+    public static List<String> obtenerValoresDeURL(String url)throws Exception
+    {
+        //Buscamos el indice
+        int indiceInterrogacion=url.indexOf('?');
+        //Miramos si cumple los aprametros la url
+        if(indiceInterrogacion!=-1)
+        {
+            //Obtener la cadena de consulta (query string)a partir del indice dle signo
+            String cadenaConsulta=url.substring(indiceInterrogacion+1);
+            //Dividimos la cadena de consultas
+            String[] paresClaveValor= cadenaConsulta.split("&");
+            //Inicializamos la lista àra almacenar los valores de los parametros
+            List<String> valoresParametros =new ArrayList();
+            //cOMPROBAMOS LOS VALORES
+            for(String par: paresClaveValor)
+            {
+                //Dividimos los valores
+                String[] keyValue=par.split("=");
+                //Verificamos que tenga un valor
+                if(keyValue.length>1)
+                {
+                    valoresParametros.add(keyValue[1]);
+                }
+            }
+            return valoresParametros;
+        }else
+        {
+            //SI NO HAY PARAMETRO DE URL
+            throw new Exception ("La URL NO CONTIENE PARAMETROS");
+        }
+    }
+}
